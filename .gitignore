@@ -1,0 +1,4 @@
+fuzzer
+*.o
+*.a
+fuzz/fuzz-*.log
