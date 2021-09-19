@@ -1,6 +1,0 @@
-[submodule "vendor/tree-sitter-hcl"]
-	path = vendor/tree-sitter-hcl
-	url = https://github.com/MichaHoffmann/tree-sitter-hcl
-[submodule "vendor/tree-sitter"]
-	path = vendor/tree-sitter
-	url = https://github.com/tree-sitter/tree-sitter

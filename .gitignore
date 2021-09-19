@@ -2,3 +2,6 @@ fuzzer
 *.o
 *.a
 fuzz/fuzz-*.log
+tmp
+corpus
+vendor
