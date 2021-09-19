@@ -14,7 +14,9 @@ ASAN_OPTIONS="quarantine_size_mb=10:detect_leaks=1:symbolize=1"
 FUZZ_OPTIONS=-max_len=${LEN} -runs=${RUNS} -workers=${WORKERS} -dict=hcl.dict -only_ascii
 
 .PHONY: fuzz
-fuzz: clean
+fuzz:
+	make fuzz_internal LEN=8 RUNS=500000 
+	make fuzz_internal LEN=16 RUNS=500000 
 	make fuzz_internal LEN=32 RUNS=500000 
 	make fuzz_internal LEN=64 RUNS=250000 
 	make fuzz_internal LEN=128 RUNS=125000
@@ -32,7 +34,7 @@ ${TREE_SITTER_HCL_DIR}: ${VENDOR_DIR}
 	git clone https://github.com/MichaHoffmann/tree-sitter-hcl ${TREE_SITTER_HCL_DIR} -b ${TREE_SITTER_HCL_REVISION} --depth=1
 
 .PHONY: fuzz_internal
-fuzz_internal: fuzzer hcl.dict ${CORPUS}
+fuzz_internal: clean fuzzer hcl.dict ${CORPUS}
 	cp -r ${CORPUS} tmp
 	UBSAN=${UBSAN_OPTIONS} ASAN_OPTIONS=${ASAN_OPTIONS} ./fuzzer ${FUZZ_OPTIONS} tmp
 	./fuzzer -merge=1 ./corpus ./tmp
